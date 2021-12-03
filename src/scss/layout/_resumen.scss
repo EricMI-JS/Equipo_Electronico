@@ -1,0 +1,38 @@
+@use "base/variables" as v;
+
+.contenido-resumen {
+  p {
+    margin-bottom: 1rem;
+  }
+
+  span {
+    color: v.$azul;
+    font-weight: v.$bold;
+    font-size: 2rem;
+  }
+}
+
+.contenedor-componente {
+  padding: 3rem 0;
+  border-bottom: 1px solid v.$gris;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 5rem;
+    height: 2.5rem;
+  }
+
+  p:first-of-type {
+    color: v.$azul;
+    font-weight: v.$bold;
+  }
+
+  p {
+    margin: 0 2rem 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: v.$separacion;
+  }
+}
