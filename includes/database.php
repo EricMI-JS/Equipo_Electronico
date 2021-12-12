@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', 'root', 'eqelectronico');
+$db = mysqli_connect('localhost', 'root', 'root', 'eqelectronico2');
 mysqli_set_charset($db, 'utf8');
 
 if (!$db) {

@@ -6,14 +6,14 @@ class Usuario extends ActiveRecord
 {
     // Base de datos
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'nocontrol', 'admin', 'confirmado', 'token'];
+    protected static $columnasDB = ['id', 'nocontrol', 'nombre', 'apellido', 'email', 'password', 'admin', 'confirmado', 'token'];
 
     public $id;
+    public $nocontrol;
     public $nombre;
     public $apellido;
     public $email;
     public $password;
-    public $nocontrol;
     public $admin;
     public $confirmado;
     public $token;
@@ -21,11 +21,11 @@ class Usuario extends ActiveRecord
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
+        $this->nocontrol = $args['nocontrol'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
-        $this->nocontrol = $args['nocontrol'] ?? '';
         $this->admin = $args['admin'] ?? '0';
         $this->confirmado = $args['confirmado'] ?? '0';
         $this->token = $args['token'] ?? '';
@@ -34,6 +34,12 @@ class Usuario extends ActiveRecord
     // Mensajes de validación para la creación de una cuenta
     public function validarNuevaCuenta()
     {
+        if (!$this->nocontrol) {
+            self::$alertas['error'][] = 'El Número de Control es Obligatorio';
+        }
+        if (strlen($this->nocontrol) < 9) {
+            self::$alertas['error'][] = 'El número de control contiene 9 dígitos';
+        }
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre es Obligatorio';
         }
@@ -49,9 +55,6 @@ class Usuario extends ActiveRecord
         if (strlen($this->password) < 6) {
             self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
         }
-
-
-
         return self::$alertas;
     }
 
@@ -86,8 +89,8 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
-    // Revisa si el usuario ya existe
-    public function existeUsuario()
+    // Revisa si el correo ya existe
+    public function existeCorreo()
     {
         $query = " SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
 
@@ -95,6 +98,20 @@ class Usuario extends ActiveRecord
 
         if ($resultado->num_rows) {
             self::$alertas['error'][] = 'El Usuario ya esta registrado';
+        }
+
+        return $resultado;
+    }
+
+    // Revisa si el No Control ya existe
+    public function existeNoControl()
+    {
+        $query = " SELECT * FROM " . self::$tabla . " WHERE nocontrol = '" . $this->nocontrol . "' LIMIT 1";
+
+        $resultado = self::$db->query($query);
+
+        if ($resultado->num_rows) {
+            self::$alertas['error'][] = 'El Número de control ya esta registrado';
         }
 
         return $resultado;

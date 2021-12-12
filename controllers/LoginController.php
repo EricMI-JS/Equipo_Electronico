@@ -144,14 +144,18 @@ class LoginController
 
         // Alertas vacias
         $alertas = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario->sincronizar($_POST);
             $alertas = $usuario->validarNuevaCuenta();
 
             // Revisar que alerta este vacio
             if (empty($alertas)) {
-                // Verificar que el usuario no este registrado
-                $resultado = $usuario->existeUsuario();
+                // Verificar Correo
+                $resultado = $usuario->existeCorreo();
+
+                // Verificar número de control
+                $resultado = $usuario->existeNoControl();
 
                 if ($resultado->num_rows) {
                     $alertas = Usuario::getAlertas();
@@ -168,7 +172,6 @@ class LoginController
 
                     // Crear el usuario
                     $resultado = $usuario->guardar();
-                    // debuguear($usuario);
                     if ($resultado) {
                         header('Location: /mensaje');
                     }
