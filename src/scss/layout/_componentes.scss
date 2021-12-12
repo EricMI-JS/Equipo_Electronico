@@ -4,9 +4,8 @@
 .listado-componentes {
   display: grid;
   gap: 2rem;
-  @include m.tablet {
-    @include m.grid(2, 2rem);
-  }
+  @include m.grid(2, 1rem);
+
   .componente {
     border: 1px solid v.$azul;
     border-radius: 1rem;
@@ -15,7 +14,6 @@
     transition-duration: 300ms;
     margin: 0.5rem;
     text-align: center;
-    font-weight: v.$bold;
 
     &.seleccionado {
       background-color: v.$azul;
@@ -26,7 +24,7 @@
     }
 
     @include m.tablet {
-      text-align: left;
+      text-align: center;
     }
 
     &:hover {
@@ -39,9 +37,10 @@
       margin: 0 0 calc(v.$separacion / 4);
     }
 
-    .cantidad-componente {
+    .categoria-componente {
       color: v.$azul;
       font-size: 1.5rem;
+      font-weight: v.$bold;
       margin: 0;
     }
   }

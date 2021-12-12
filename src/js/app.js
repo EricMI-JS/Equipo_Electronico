@@ -118,23 +118,29 @@ async function consultarAPI() {
         const resultado = await fetch(url);
         const componentes = await resultado.json();
 
-        mostrarComponentes(componentes);
+        filtrarDisponibles(componentes);
     } catch (error) {
         console.log(error);
     }
 }
 
+// Elimina las categorias repetidas
+function filtrarDisponibles(componentes) {
+    const disponibles = componentes.filter(componente => componente.estado === '0');
+    mostrarComponentes(disponibles);
+}
+
 function mostrarComponentes(componentes) {
     componentes.forEach(componente => {
-        const { id, nombre, cantidad } = componente;
+        const { id, categoria, nombre } = componente;
 
         const nombreComponente = document.createElement('P');
         nombreComponente.classList.add('nombre-componente');
         nombreComponente.textContent = nombre;
 
-        const cantidadComponente = document.createElement('P');
-        cantidadComponente.classList.add('cantidad-componente');
-        cantidadComponente.textContent = `Disponible: ${cantidad}`;
+        const categoriaComponente = document.createElement('P');
+        categoriaComponente.classList.add('categoria-componente');
+        categoriaComponente.textContent = categoria;
 
         const componenteDiv = document.createElement('DIV');
         componenteDiv.classList.add('componente');
@@ -144,10 +150,9 @@ function mostrarComponentes(componentes) {
         }
 
         componenteDiv.appendChild(nombreComponente);
-        componenteDiv.appendChild(cantidadComponente);
+        componenteDiv.appendChild(categoriaComponente);
 
         document.querySelector('#componentes').appendChild(componenteDiv);
-
     });
 }
 
