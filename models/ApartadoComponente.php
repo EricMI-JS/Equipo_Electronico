@@ -5,18 +5,16 @@ namespace Model;
 class ApartadoComponente extends ActiveRecord
 {
     protected static $tabla = 'apartadoscomponentes';
-    protected static $columnasDB = ['id', 'apartadoId', 'componenteId', 'cantidadComponentes'];
+    protected static $columnasDB = ['id', 'apartado_apartadoId', 'apartado_componenteId'];
 
     public $id;
-    public $apartadoId;
-    public $servicioId;
-    public $cantidadComponentes;
+    public $apartado_apartadoId;
+    public $apartado_componenteId;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->apartadoId = $args['apartadoId'] ?? '';
-        $this->componenteId = $args['componenteId'] ?? '';
-        $this->cantidadComponentes = $args['cantidadComponentes'] ?? '';
+        $this->apartado_apartadoId = $args['apartado_apartadoId'] ?? '';
+        $this->apartado_componenteId = $args['apartado_componenteId'] ?? '';
     }
 }

@@ -6,10 +6,9 @@ class Componente extends ActiveRecord
 {
     // Base de datos
     protected static $tabla = 'componentes';
-    protected static $columnasDB = ['id', 'folio', 'nombre', 'categoria', 'descripcion', 'estado'];
+    protected static $columnasDB = ['id', 'nombre', 'categoria', 'descripcion', 'estado'];
 
     public $id;
-    public $folio;
     public $nombre;
     public $categoria;
     public $descripcion;
@@ -18,7 +17,6 @@ class Componente extends ActiveRecord
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->folio = $args['folio'] ?? '';
         $this->nombre = $args['nombre'] ?? '';
         $this->categoria = $args['categoria'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';

@@ -1,0 +1,15 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.filtroInput {
+  display: block;
+  min-width: 100%;
+  border: 1px solid v.$negro;
+  border-radius: 5px;
+  margin: 3rem 0 3rem 0;
+  padding: 1rem;
+
+  &:focus {
+    border: 1px solid v.$azul;
+  }
+}

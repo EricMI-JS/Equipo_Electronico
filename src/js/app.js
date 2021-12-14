@@ -29,6 +29,8 @@ function iniciarApp() {
     seleccionarHora(); // Añade la hora de la apartado en el objeto
 
     mostrarResumen(); // Muestra el resumen de la apartado
+
+    buscarComponente();
 }
 
 function mostrarSeccion() {
@@ -154,6 +156,8 @@ function mostrarComponentes(componentes) {
 
         document.querySelector('#componentes').appendChild(componenteDiv);
     });
+
+    buscarComponente();
 }
 
 function seleccionarComponente(componente) {
@@ -219,12 +223,12 @@ function seleccionarHora() {
 }
 
 function seleccionarCantidad() {
-    const inputCantidad = document.querySelectorAll('.contenedor-componente input');
-    const { componentes } = apartado;
+    // const inputCantidad = document.querySelectorAll('.contenedor-componente input');
+    // const { componentes } = apartado;
 
-    for (let i = 0; i < inputCantidad.length; i++) {
-        componentes[i].cantidad = inputCantidad[i].value;
-    }
+    // for (let i = 0; i < inputCantidad.length; i++) {
+    //     componentes[i].cantidad = inputCantidad[i].value;
+    // }
 }
 
 function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
@@ -285,14 +289,18 @@ function mostrarResumen() {
         const textoComponente = document.createElement('P');
         textoComponente.textContent = nombre;
 
-        const cantidadComponente = document.createElement('INPUT');
-        cantidadComponente.setAttribute('type', 'number');
-        cantidadComponente.setAttribute('min', '1');
-        cantidadComponente.setAttribute('max', `${cantidad}`);
-        cantidadComponente.setAttribute('value', '1');
+        const idComponente = document.createElement('P');
+        idComponente.textContent = `Folio: ${id}`;
+
+        // const cantidadComponente = document.createElement('INPUT');
+        // cantidadComponente.setAttribute('type', 'number');
+        // cantidadComponente.setAttribute('min', '1');
+        // cantidadComponente.setAttribute('max', `${cantidad}`);
+        // cantidadComponente.setAttribute('value', '1');
 
         contenedorComponente.appendChild(textoComponente);
-        contenedorComponente.appendChild(cantidadComponente);
+        contenedorComponente.appendChild(idComponente);
+        // contenedorComponente.appendChild(cantidadComponente);
 
         resumen.appendChild(contenedorComponente);
     });
@@ -320,7 +328,7 @@ function mostrarResumen() {
     fechaApartado.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;
 
     const horaApartado = document.createElement('P');
-    horaApartado.innerHTML = `<span>Hora:</span> ${hora} Horas`;
+    horaApartado.innerHTML = `<span>Hora a recoger:</span> ${hora} Horas`;
 
     // Boton para Crear una apartado
     const botonReservar = document.createElement('BUTTON');
@@ -336,29 +344,25 @@ function mostrarResumen() {
 }
 
 async function reservarApartado() {
-    seleccionarCantidad();
 
-    const { nombre, fecha, hora, componentes, id } = apartado
-
-    console.log(apartado);
+    const { nombre, fecha, hora, componentes, id } = apartado;
 
     const idComponentes = componentes.map(componente => componente.id);
-    const cantidadComponentes = componentes.map(componente => componente.cantidad);
 
     const datos = new FormData();
     datos.append('fecha', fecha);
     datos.append('hora', hora);
-    datos.append('usuarioId', id);
+    datos.append('apartado_usuarioId', id);
     datos.append('componentes', idComponentes);
-    datos.append('cantidadComponentes', cantidadComponentes);
 
     // console.log([...datos]);
 
+    // Petición hacia la api
+    const url = 'http://localhost:3000/api/apartados';
+
     try {
-        // Petición hacia la API
-        const url = 'http://localhost:3000/api/apartados';
         const respuesta = await fetch(url, {
-            method: "POST",
+            method: 'POST',
             body: datos
         });
 
@@ -384,4 +388,24 @@ async function reservarApartado() {
             window.location.reload();
         })
     }
+}
+
+function buscarComponente() {
+
+    const filtroInput = document.querySelector('#filtroInput');
+
+    filtroInput.addEventListener('keyup', function () {
+        const filtro = filtroInput.value.toLowerCase();
+        const componentes = document.querySelectorAll('.componente')
+
+        componentes.forEach(componente => {
+            let texto = componente.textContent;
+            if (texto.toLowerCase().includes(filtro.toLowerCase())) {
+                componente.style.display = '';
+            } else {
+                componente.style.display = 'none';
+            }
+        });
+    })
+
 }

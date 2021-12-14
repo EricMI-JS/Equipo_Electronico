@@ -15,6 +15,11 @@ include_once __DIR__ . '/../templates/barra.php';
     <div id="paso-1" class="seccion">
         <h2>Componentes</h2>
         <p class="text-center">Elige tus componentes a continuación</p>
+
+
+        <input type="text" class="filtroInput" id="filtroInput" placeholder="Busca por nombre...">
+
+
         <div id="componentes" class="listado-componentes"></div>
     </div>
     <div id="paso-2" class="seccion">
@@ -29,7 +34,7 @@ include_once __DIR__ . '/../templates/barra.php';
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input id="fecha" type="date" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
+                <input id="fecha" type="date" min="<?php echo date('Y-m-d'); ?>" />
             </div>
 
             <div class="campo">
