@@ -33,6 +33,7 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 // AREA PRIVADA
 $router->get('/apartado', [ApartadoController::class, 'index']);
 $router->get('/admin', [AdminController::class, 'index']);
+$router->get('/usuarios', [AdminController::class, 'usuarios']);
 
 // API de Apartados
 $router->get('/api/componentes', [APIController::class, 'index']);
@@ -40,12 +41,12 @@ $router->post('/api/apartados', [APIController::class, 'guardar']);
 $router->post('/api/eliminar', [APIController::class, 'eliminar']);
 
 // CRUD de Componentes
-$router->get('/componentes', [ComponenteController::class, 'index']);
-$router->get('/componentes/crear', [ComponenteController::class, 'crear']);
-$router->post('/componentes/crear', [ComponenteController::class, 'crear']);
-$router->get('/componentes/actualizar', [ComponenteController::class, 'actualizar']);
-$router->post('/componentes/actualizar', [ComponenteController::class, 'actualizar']);
-$router->post('/componentes/eliminar', [ComponenteController::class, 'eliminar']);
+$router->get('/inventario', [ComponenteController::class, 'index']);
+$router->get('/inventario/crear', [ComponenteController::class, 'crear']);
+$router->post('/inventario/crear', [ComponenteController::class, 'crear']);
+$router->get('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
+$router->post('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
+$router->post('/inventario/eliminar', [ComponenteController::class, 'eliminar']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

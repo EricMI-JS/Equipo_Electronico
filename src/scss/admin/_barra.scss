@@ -1,0 +1,32 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.principal {
+  flex: 1;
+
+  .barra {
+    background-color: v.$blanco;
+    padding: 1rem 2rem;
+    box-shadow: 1px 12px 9px -13px rgba(0, 0, 0, 0.4);
+    margin-bottom: 0;
+
+    p {
+      span {
+        font-weight: 700;
+        color: v.$negro;
+      }
+    }
+  }
+  .boton {
+    background-color: v.$azul;
+    color: v.$blanco;
+    font-size: 1.8rem;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: initial;
+
+    &:hover {
+      background-color: darken(v.$azul, 20%);
+    }
+  }
+}

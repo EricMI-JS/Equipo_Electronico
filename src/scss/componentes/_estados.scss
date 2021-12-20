@@ -1,0 +1,14 @@
+@use "../base/variables" as v;
+
+.verde {
+  color: v.$verde;
+}
+.rojo {
+  color: v.$rojo;
+}
+.amarillo {
+  color: v.$amarillo;
+}
+.azul {
+  color: v.$azul;
+}

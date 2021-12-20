@@ -1,0 +1,33 @@
+@use "../base/variables" as v;
+
+.sidebar {
+  background-color: v.$azul;
+  padding: 1.5rem;
+
+  h2 {
+    color: v.$blanco;
+    margin: 0;
+    text-align: center;
+  }
+
+  .sidebar-nav {
+    margin-top: 5rem;
+
+    a {
+      color: v.$blanco;
+      display: block;
+      margin-bottom: 1.5rem;
+      padding: 0.7rem;
+      transition-property: background-color;
+      transition-duration: 300ms;
+      font-weight: bolder;
+      font-size: 1.8rem;
+
+      &:hover,
+      &.activo {
+        background-color: darken(v.$azul, 20%);
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}

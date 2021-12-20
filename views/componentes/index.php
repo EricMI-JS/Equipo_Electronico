@@ -1,25 +1,41 @@
-<h1 class="nombre-pagina">Componentes</h1>
-<p class="descripcion-pagina">Administración de Componentes</p>
+<?php include_once __DIR__ . '/../admin/header-admin.php'; ?>
 
-<?php
-include_once __DIR__ . '/../templates/barra.php';
-?>
+<div class="inventario">
+    <a class="boton" href="/inventario/crear">Crear Nuevo Componente</a>
+</div>
 
-<ul class="componentes">
-    <?php foreach ($componentes as $componente) { ?>
-        <li>
-            <p>Nombre: <span><?php echo $componente->nombre; ?></span> </p>
-            <p>Cantidad: <span><?php echo $componente->cantidad; ?></span> </p>
+<h2 class="subtitulo">Lista de componentes</h2>
 
-            <div class="acciones">
-                <a class="boton" href="/componentes/actualizar?id=<?php echo $componente->id; ?>">Actualizar</a>
+<input type="text" class="filtroInput" id="filtroInput" placeholder="Busca por nombre...">
 
-                <form action="/componentes/eliminar" method="POST">
-                    <input type="hidden" name="id" value="<?php echo $componente->id; ?>">
+<table class="componentes tabla">
+    <thead>
+        <th>Folio</th>
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody class="tabla-cuerpo">
+        <?php foreach ($componentes as $componente) { ?>
+            <tr>
+                <td><?php echo $componente->id ?></td>
+                <td><?php echo $componente->nombre ?></td>
+                <td><?php echo $componente->categoria ?></td>
+                <td><?php echo $componente->estado ?></td>
+                <td>
+                    <div class="acciones">
+                        <a class="btn-yellow" href="/inventario/actualizar?id=<?php echo $componente->id; ?>">Actualizar</a>
 
-                    <input type="submit" value="Borrar" class="boton-eliminar">
-                </form>
-            </div>
-        </li>
-    <?php } ?>
-</ul>
+                        <form class="eliminar" action="/inventario/eliminar" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $componente->id; ?>">
+                            <input type="submit" value="Borrar" class="btn-red">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php include_once __DIR__ . '/../admin/footer-admin.php'; ?>

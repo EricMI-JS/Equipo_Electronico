@@ -41,35 +41,24 @@ class APIController
 
         // Retornamos una respuesta
         echo json_encode(['resultado' => $resultado]);
-
-        // $id = $resultado['id'];
-
-
-        // // Almacena los componentes con el ID del apartado
-        // $idComponentes = explode(",", $_POST['componentes']);
-        // $cantidadComponentes = explode(',', $_POST['cantidadComponentes']);
-
-        // for ($i = 0; $i < count($idComponentes); $i++) {
-        //     $args = [
-        //         'apartadoId' => $id,
-        //         'componenteId' => $idComponentes[$i],
-        //         'cantidadComponentes' => $cantidadComponentes[$i]
-        //     ];
-        //     $apartadoComponente = new ApartadoComponente($args);
-        //     $apartadoComponente->guardar();
-        // }
-
-
     }
 
     public static function eliminar()
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
+
             $apartado = Apartado::find($id);
-            $apartado->eliminar();
-            header('Location:' . $_SERVER['HTTP_REFERER']);
+
+            if ($_POST['aceptar']) {
+                $apartado->estado = "1";
+                $apartado->guardar();
+                header('Location:' . $_SERVER['HTTP_REFERER']);
+            } else {
+                $apartado->estado = "2";
+                $apartado->guardar();
+                header('Location:' . $_SERVER['HTTP_REFERER']);
+            }
         }
     }
 }

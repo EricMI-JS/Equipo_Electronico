@@ -1,18 +1,24 @@
 @use "base/variables" as v;
 @use "base/mixins" as m;
 
-.acciones {
-  margin-top: v.$separacion;
+.acciones-auth {
   @include m.tablet {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    a {
+      color: v.$azul;
+      margin: 0;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
   }
 
-  a {
-    color: v.$azul;
-    display: block;
-    margin-bottom: calc(v.$separacion / 2);
-    text-align: center;
+  .eliminar {
+    input {
+      margin: 0;
+    }
   }
 }

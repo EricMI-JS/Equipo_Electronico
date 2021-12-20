@@ -37,7 +37,7 @@ include_once __DIR__ . "/../templates/alertas.php";
 
 </form>
 
-<div class="acciones">
-    <a href="/">¿Ya tienes una cuenta? Inicia Sesión</a>
+<div class="acciones-auth">
+    <a href="/">¿Ya tienes una cuenta?</a>
     <a href="/olvide">¿Olvidaste tu password?</a>
 </div>

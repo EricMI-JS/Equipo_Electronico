@@ -25,14 +25,17 @@ class Componente extends ActiveRecord
 
     public function validar()
     {
+        if (!is_numeric($this->id)) {
+            self::$alertas['error'][] = 'Debes Agregar un Folio Válido';
+        }
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre del Componente es Obligatorio';
         }
-        if (!$this->cantidad) {
-            self::$alertas['error'][] = 'El Cantidad del Componente es Obligatorio';
+        if (!$this->categoria) {
+            self::$alertas['error'][] = 'La Categoría del Componente es Obligatorio';
         }
-        if (!is_numeric($this->cantidad)) {
-            self::$alertas['error'][] = 'La cantidad no es válida';
+        if (!$this->descripcion) {
+            self::$alertas['error'][] = 'La Descripcion del Componente es Obligatorio';
         }
 
         return self::$alertas;

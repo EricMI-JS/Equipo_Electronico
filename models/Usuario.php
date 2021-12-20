@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use mysqli;
+
 class Usuario extends ActiveRecord
 {
     // Base de datos

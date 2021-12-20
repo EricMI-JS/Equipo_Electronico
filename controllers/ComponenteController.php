@@ -7,6 +7,7 @@ use MVC\Router;
 
 class ComponenteController
 {
+
     public static function index(Router $router)
     {
         session_start();
@@ -15,7 +16,8 @@ class ComponenteController
 
         $componentes = Componente::all();
 
-        $router->render('componentes/index', [
+        $router->renderAdmin('componentes/index', [
+            'titulo' => 'Inventario',
             'nombre' => $_SESSION['nombre'],
             'componentes' => $componentes
         ]);
@@ -24,9 +26,10 @@ class ComponenteController
     public static function crear(Router $router)
     {
         session_start();
-        isAdmin();
         $componente = new Componente;
         $alertas = [];
+
+        isAdmin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $componente->sincronizar($_POST);
@@ -35,11 +38,11 @@ class ComponenteController
 
             if (empty($alertas)) {
                 $componente->guardar();
-                header('Location: /componentes');
             }
         }
 
-        $router->render('componentes/crear', [
+        $router->renderAdmin('componentes/crear', [
+            'titulo' => 'Crear nuevo componente',
             'nombre' => $_SESSION['nombre'],
             'componente' => $componente,
             'alertas' => $alertas
@@ -48,14 +51,12 @@ class ComponenteController
 
     public static function actualizar(Router $router)
     {
-        session_start();
-        isAdmin();
-
         if (!is_numeric($_GET['id'])) return;
 
         $componente = Componente::find($_GET['id']);
         $alertas = [];
-
+        session_start();
+        isAdmin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $componente->sincronizar($_POST);
@@ -63,12 +64,13 @@ class ComponenteController
             $alertas = $componente->validar();
 
             if (empty($alertas)) {
-                $componente->guardar();
-                header('Location: /componentes');
+                $componente->actualizar();
+                header('Location: /inventario');
             }
         }
 
-        $router->render('componentes/actualizar', [
+        $router->renderAdmin('componentes/actualizar', [
+            'titulo' => 'Actualizar Componente',
             'nombre' => $_SESSION['nombre'],
             'componente' => $componente,
             'alertas' => $alertas
@@ -77,14 +79,10 @@ class ComponenteController
 
     public static function eliminar()
     {
-        session_start();
         isAdmin();
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $componente = Componente::find($id);
-            $componente->eliminar();
-            header('Location: /componentes');
-        }
+        $id = $_POST['id'];
+        $componente = Componente::find($id);
+        $componente->eliminar();
+        header('Location: /inventario');
     }
 }

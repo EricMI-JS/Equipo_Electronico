@@ -4,14 +4,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function iniciarApp() {
     buscarPorFecha();
-    buscarPorComponente();
+    buscarComponente();
 }
 
 function buscarPorFecha() {
-    const fechaInput = document.querySelector('#fecha');
+    const fechaInput = document.querySelector('#fechaApartados');
     fechaInput.addEventListener('input', function (e) {
         const fechaSeleccionada = e.target.value;
-
         window.location = `?fecha=${fechaSeleccionada}`;
     });
+}
+
+function buscarComponente() {
+    alert('hola');
 }

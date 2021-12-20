@@ -105,13 +105,13 @@ class ActiveRecord
     public function guardar()
     {
         $resultado = '';
-        if (!is_null($this->id)) {
-            // actualizar
-            $resultado = $this->actualizar();
-        } else {
-            // Creando un nuevo registro
-            $resultado = $this->crear();
-        }
+        // if (!is_null($this->id)) {
+        //     // actualizar
+        //     $resultado = $this->actualizar();
+        // } else {
+        // Creando un nuevo registro
+        $resultado = $this->crear();
+        // }
         return $resultado;
     }
 
