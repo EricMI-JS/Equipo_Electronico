@@ -3,7 +3,9 @@
 namespace Controllers;
 
 use Model\AdminApartado;
-use Model\Usuario;
+use Model\Apartado;
+use Model\ApartadoComponente;
+use Model\Componente;
 use MVC\Router;
 
 class AdminController
@@ -46,18 +48,27 @@ class AdminController
         ]);
     }
 
-    public static function usuarios(Router $router)
+    public static function actualizar()
     {
-        session_start();
-
-        isAuth();
-
-        $consulta = Usuario::all();
-
-        $router->renderAdmin('admin/usuarios', [
-            'titulo' => 'Usuarios',
-            'nombre' => $_SESSION['nombre'],
-            'usuarios' => $consulta
-        ]);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            if ($_POST['aceptar']) {
+                $apartado = Apartado::find($id);
+                $apartado->estado = "1";
+                $apartado->actualizar();
+                $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
+                foreach ($apartados as $apartado) {
+                    $componente = Componente::find($apartado->apartado_componenteId);
+                    $componente->estado = '1';
+                    $componente->actualizar();
+                    header('Location: /inventario');
+                }
+            } else {
+                $apartado = Apartado::find($id);
+                $apartado->estado = "2";
+                $apartado->actualizar();
+                header('Location: /admin');
+            }
+        }
     }
 }

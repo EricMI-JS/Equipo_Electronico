@@ -1,0 +1,43 @@
+@use '../base/variables' as v;
+
+.contenedor-modal {
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    pointer-events: none;
+
+    &.show {
+        pointer-events: auto;
+        opacity: 1;
+    }
+}
+
+.modal {
+    background-color: v.$blanco;
+    border-radius: .5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0, 0.2);
+    padding: 5rem 5rem;
+    width: 600px;
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+
+    h1 {
+        margin: 0 0 3rem;
+    }
+
+
+    .boton {
+        margin: 0;
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+    }
+}

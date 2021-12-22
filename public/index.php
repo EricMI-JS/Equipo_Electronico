@@ -7,6 +7,7 @@ use Controllers\ApartadoController;
 use Controllers\APIController;
 use Controllers\LoginController;
 use Controllers\ComponenteController;
+use Controllers\UsuarioController;
 use MVC\Router;
 
 $router = new Router();
@@ -33,7 +34,11 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 // AREA PRIVADA
 $router->get('/apartado', [ApartadoController::class, 'index']);
 $router->get('/admin', [AdminController::class, 'index']);
-$router->get('/usuarios', [AdminController::class, 'usuarios']);
+$router->post('/admin/actualizar', [AdminController::class, 'actualizar']);
+
+$router->get('/usuarios', [UsuarioController::class, 'index']);
+$router->post('/usuarios/admin', [UsuarioController::class, 'admin']);
+$router->post('/usuarios/eliminar', [UsuarioController::class, 'eliminar']);
 
 // API de Apartados
 $router->get('/api/componentes', [APIController::class, 'index']);
