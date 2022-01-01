@@ -1,3 +1,7 @@
+<h2 class="subtitulo">Componentes más apartados</h2>
+
+<canvas id="myChart" width="400" height="200"></canvas>
+
 <h2 class="subtitulo">Seleccione una fecha</h2>
 <input id="fechaApartados" value="<?php echo $fecha ?>" type="date"" />
             <?php if (count($apartados) === 0) {
@@ -8,8 +12,8 @@
 <thead class="tabla-encabezado">
     <th>Solicitante</th>
     <th>Hora</th>
-    <th>Estado</th>
     <th>Componentes</th>
+    <th>Estado</th>
     <th>Acciones</th>
 </thead>
 <tbody class="tabla-cuerpo">
@@ -21,6 +25,7 @@
             <tr>
                 <td> <?php echo $apartado->solicitante ?></td>
                 <td> <?php echo $apartado->hora ?></td>
+                <td> <a class="abrir-modal" data-id="<?php echo $apartado->id; ?>" href="#">Ver componentes</a> </td>
                 <td class="<?php if ($apartado->estado === '0') {
                                 echo "pendiente";
                             } elseif ($apartado->estado === '1') {
@@ -34,14 +39,13 @@
                                     } elseif ($apartado->estado === '2') {
                                         echo "Rechazado";
                                     } ?></td>
-                <td> <a class="abrir-modal" data-id="<?php echo $apartado->id; ?>" href="#">Ver componentes</a> </td>
                 <td>
                     <form class="acciones" action="/admin/actualizar" method="POST">
                         <input type="hidden" name="id" value="<?php echo $apartado->id; ?>">
                         <input type="submit" name="aceptar" value="Aceptar" class="btn-green">
                         <input type="submit" name="rechazar" value="Rechazar" class="btn-red">
+                        <input type="submit" name="devolver" value="Devolucion" class="btn-lightBlue">
                     </form>
-                    </div>
                 </td>
             </tr>
         <?php
@@ -69,5 +73,9 @@
 
 
 <?php
-$script = "<script src='build/js/admin.js'></script>"
+$script = "
+            <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+            <script src='build/js/admin.js'></script>
+            <script src='build/js/chart.js'></script>
+            "
 ?>

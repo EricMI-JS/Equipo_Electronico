@@ -15,6 +15,12 @@ class APIController
         echo json_encode($componentes);
     }
 
+    public static function apartadosComponentes()
+    {
+        $apartadosComponentes = ApartadoComponente::all();
+        echo json_encode($apartadosComponentes);
+    }
+
     public static function guardar()
     {
         // Almacena el apartado y devuelve el ID
@@ -24,7 +30,6 @@ class APIController
         $id = $resultado['id'];
 
         // Almacena los apartados y los componentes
-
         $idComponentes = explode(',', $_POST['componentes']);
         foreach ($idComponentes as $idComponente) {
             $args = [
@@ -36,7 +41,7 @@ class APIController
 
             $componente = Componente::where('id', $idComponente);
             $componente->estado = "1";
-            $componente->guardar();
+            $componente->actualizar();
         }
 
         // Retornamos una respuesta

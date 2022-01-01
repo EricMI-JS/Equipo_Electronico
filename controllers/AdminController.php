@@ -48,7 +48,7 @@ class AdminController
         ]);
     }
 
-    public static function actualizar()
+    public static function actualizar(Router $router)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
@@ -57,17 +57,25 @@ class AdminController
                 $apartado->estado = "1";
                 $apartado->actualizar();
                 $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
-                foreach ($apartados as $apartado) {
-                    $componente = Componente::find($apartado->apartado_componenteId);
-                    $componente->estado = '1';
-                    $componente->actualizar();
-                    header('Location: /inventario');
-                }
-            } else {
+                // foreach ($apartados as $apartado) {
+                //     $componente = Componente::find($apartado->apartado_componenteId);
+                //     $componente->estado = '1';
+                //     $componente->actualizar();
+                // }
+                header('Location: /inventario');
+            } elseif ($_POST['rechazar']) {
                 $apartado = Apartado::find($id);
                 $apartado->estado = "2";
                 $apartado->actualizar();
-                header('Location: /admin');
+                header('Location:' . $_SERVER['HTTP_REFERER']);
+            } else {
+                $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
+                foreach ($apartados as $apartado) {
+                    $componente = Componente::find($apartado->apartado_componenteId);
+                    $componente->estado = '0';
+                    $componente->actualizar();
+                    header('Location: /inventario');
+                }
             }
         }
     }

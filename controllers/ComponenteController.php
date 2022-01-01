@@ -38,6 +38,7 @@ class ComponenteController
 
             if (empty($alertas)) {
                 $componente->guardar();
+                header('Location: /inventario');
             }
         }
 

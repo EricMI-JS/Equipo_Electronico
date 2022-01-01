@@ -42,6 +42,7 @@ $router->post('/usuarios/eliminar', [UsuarioController::class, 'eliminar']);
 
 // API de Apartados
 $router->get('/api/componentes', [APIController::class, 'index']);
+$router->get('/api/apartados', [APIController::class, 'apartadosComponentes']);
 $router->post('/api/apartados', [APIController::class, 'guardar']);
 $router->post('/api/eliminar', [APIController::class, 'eliminar']);
 
