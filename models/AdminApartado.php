@@ -5,10 +5,11 @@ namespace Model;
 class AdminApartado extends ActiveRecord
 {
     protected static $tabla = 'apartadoscomponentes';
-    protected static $columnasDB = ['id', 'hora', 'solicitante', 'nocontrol', 'foliocomponente', 'componente', 'estado'];
+    protected static $columnasDB = ['id', 'hora', 'usuarioId', 'solicitante', 'nocontrol', 'foliocomponente', 'componente', 'estado'];
 
     public $id;
     public $hora;
+    public $usuarioId;
     public $solicitante;
     public $nocontrol;
     public $foliocomponente;
@@ -19,6 +20,7 @@ class AdminApartado extends ActiveRecord
     {
         $this->id = $args['id'] ?? null;
         $this->hora = $args['hora'] ?? '';
+        $this->usuarioId = $args['usuarioId'] ?? '';
         $this->solicitante = $args['solicitante'] ?? '';
         $this->nocontrol = $args['nocontrol'] ?? '';
         $this->foliocomponente = $args['foliocomponente'] ?? '';

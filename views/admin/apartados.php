@@ -19,6 +19,7 @@
 <tbody class="tabla-cuerpo">
     <?php
     $idApartado = 0;
+    // debuguear($apartados);
     foreach ($apartados as $apartado) {
         if ($idApartado !== $apartado->id) {
     ?>
@@ -42,6 +43,7 @@
                 <td>
                     <form class="acciones" action="/admin/actualizar" method="POST">
                         <input type="hidden" name="id" value="<?php echo $apartado->id; ?>">
+                        <input type="hidden" name="usuarioId" value="<?php echo $apartado->usuarioId; ?>">
                         <input type="submit" name="aceptar" value="Aceptar" class="btn-green">
                         <input type="submit" name="rechazar" value="Rechazar" class="btn-red">
                         <input type="submit" name="devolver" value="Devolucion" class="btn-lightBlue">
