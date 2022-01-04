@@ -38,6 +38,8 @@ class AdminController
         $consulta .= " ON componentes.id=apartadoscomponentes.apartado_componenteId ";
         $consulta .= " WHERE fecha = '${fecha}' ";
 
+        $devoluciones = Devolucion::all();
+
         // Consultar número de usuarios
         $apartados = AdminApartado::SQL($consulta);
 
@@ -45,11 +47,12 @@ class AdminController
             'titulo' => 'Apartados',
             'nombre' => $_SESSION['nombre'],
             'apartados' => $apartados,
+            'devoluciones' => $devoluciones,
             'fecha' => $fecha
         ]);
     }
 
-    public static function actualizar(Router $router)
+    public static function actualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
@@ -76,7 +79,7 @@ class AdminController
                 $devoluciones = new Devolucion();
                 $devoluciones->fecha = $fecha;
                 $devoluciones->hora = $hora;
-                $devoluciones->devolucion_usuarioId = $_POST['usuarioId'];
+                $devoluciones->apartadoId = $id;
                 $devoluciones->guardar();
 
                 $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
@@ -84,9 +87,17 @@ class AdminController
                     $componente = Componente::find($apartado->apartado_componenteId);
                     $componente->estado = '0';
                     $componente->actualizar();
-                    header('Location: /inventario');
+                    header('Location:' . $_SERVER['HTTP_REFERER']);
                 }
             }
+        }
+    }
+    public static function eliminar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $devolucion = Devolucion::find($id);
+            $devolucion->eliminar();
         }
     }
 }

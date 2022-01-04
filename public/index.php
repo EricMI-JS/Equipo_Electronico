@@ -35,6 +35,7 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 $router->get('/apartado', [ApartadoController::class, 'index']);
 $router->get('/admin', [AdminController::class, 'index']);
 $router->post('/admin/actualizar', [AdminController::class, 'actualizar']);
+$router->post('/admin/eliminar', [AdminController::class, 'eliminar']);
 
 $router->get('/usuarios', [UsuarioController::class, 'index']);
 $router->post('/usuarios/admin', [UsuarioController::class, 'admin']);
