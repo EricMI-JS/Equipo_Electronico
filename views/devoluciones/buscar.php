@@ -22,7 +22,7 @@
 
     <tbody class="tabla-cuerpo">
         <tr>
-            <td><?php echo $devolucion->apartadoId ?></td>
+            <td><?php echo $devolucion->id ?></td>
             <td><?php echo $devolucion->fecha ?></td>
             <td><?php echo $devolucion->hora ?></td>
             <td class="acciones">

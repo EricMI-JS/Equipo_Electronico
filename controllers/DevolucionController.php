@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Apartado;
 use Model\Devolucion;
 use MVC\Router;
 
@@ -14,9 +15,12 @@ class DevolucionController
 
         isAdmin();
 
+        $devolucion = new Devolucion();
+
         $router->renderAdmin('devoluciones/index', [
             'titulo' => "Devoluciones",
-            'nombre' => $_SESSION['nombre']
+            'nombre' => $_SESSION['nombre'],
+            'devolucion' => $devolucion
         ]);
     }
 
@@ -28,9 +32,9 @@ class DevolucionController
 
         $id = $_POST['id'];
 
-        $devolucion = Devolucion::find($id);
+        $devolucion = Devolucion::where('apartadoId', $id);
 
-        $router->renderAdmin('devoluciones/buscar', [
+        $router->renderAdmin('devoluciones/index', [
             'titulo' => "Devoluciones",
             'nombre' => $_SESSION['nombre'],
             'devolucion' => $devolucion
