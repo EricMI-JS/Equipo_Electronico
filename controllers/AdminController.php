@@ -81,13 +81,12 @@ class AdminController
                 $devoluciones->hora = $hora;
                 $devoluciones->apartadoId = $id;
                 $devoluciones->guardar();
-
                 $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
                 foreach ($apartados as $apartado) {
                     $componente = Componente::find($apartado->apartado_componenteId);
                     $componente->estado = '0';
                     $componente->actualizar();
-                    header('Location:' . $_SERVER['HTTP_REFERER']);
+                    header('Location: /devoluciones');
                 }
             }
         }

@@ -7,6 +7,7 @@ use Controllers\ApartadoController;
 use Controllers\APIController;
 use Controllers\LoginController;
 use Controllers\ComponenteController;
+use Controllers\DevolucionController;
 use Controllers\UsuarioController;
 use MVC\Router;
 
@@ -36,6 +37,10 @@ $router->get('/apartado', [ApartadoController::class, 'index']);
 $router->get('/admin', [AdminController::class, 'index']);
 $router->post('/admin/actualizar', [AdminController::class, 'actualizar']);
 $router->post('/admin/eliminar', [AdminController::class, 'eliminar']);
+
+$router->get('/devoluciones', [DevolucionController::class, 'index']);
+$router->post('/devoluciones/buscar', [DevolucionController::class, 'buscar']);
+
 
 $router->get('/usuarios', [UsuarioController::class, 'index']);
 $router->post('/usuarios/admin', [UsuarioController::class, 'admin']);

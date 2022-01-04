@@ -74,35 +74,6 @@
     </div>
 </div>
 
-<h3>Devoluciones</h3>
-
-<table class="tabla">
-    <thead class="tabla-encabezado">
-        <th>ID Apartado</th>
-        <th>Solicitante</th>
-        <th>Hora</th>
-        <th>Acciones</th>
-    </thead>
-    <tbody class="tabla-cuerpo">
-        <?php
-        foreach ($devoluciones as $devolucion) {
-        ?>
-            <tr>
-                <td><?php echo $devolucion->apartadoId ?></td>
-                <td><?php echo $devolucion->fecha ?></td>
-                <td><?php echo $devolucion->hora ?></td>
-                <td>
-                    <form class="acciones" action="/admin/eliminar" method="POST">
-                        <input type="hidden" name="id" value="<?php echo $devolucion->id; ?>">
-                        <input type="submit" name="eliminar" value="Eliminar" class="btn-red">
-                    </form>
-                </td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
-
-
 <?php
 $script = "
             <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
