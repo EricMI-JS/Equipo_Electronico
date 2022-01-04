@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\AdminApartado;
+use Model\Devolucion;
 use Model\Apartado;
 use Model\ApartadoComponente;
 use Model\Componente;
@@ -26,7 +27,7 @@ class AdminController
         }
 
         // Consultar la Base de Datos
-        $consulta = "SELECT apartados.id, apartados.hora, CONCAT (usuarios.nombre, ' ', usuarios.apellido) AS solicitante, ";
+        $consulta = "SELECT apartados.id, apartados.hora, usuarios.id AS usuarioId, CONCAT (usuarios.nombre, ' ', usuarios.apellido) AS solicitante, ";
         $consulta .= " usuarios.nocontrol, componentes.id as foliocomponente, componentes.nombre as componente, apartados.estado ";
         $consulta .= " FROM apartados ";
         $consulta .= " LEFT OUTER JOIN usuarios ";
@@ -37,6 +38,8 @@ class AdminController
         $consulta .= " ON componentes.id=apartadoscomponentes.apartado_componenteId ";
         $consulta .= " WHERE fecha = '${fecha}' ";
 
+        $devoluciones = Devolucion::all();
+
         // Consultar número de usuarios
         $apartados = AdminApartado::SQL($consulta);
 
@@ -44,14 +47,16 @@ class AdminController
             'titulo' => 'Apartados',
             'nombre' => $_SESSION['nombre'],
             'apartados' => $apartados,
+            'devoluciones' => $devoluciones,
             'fecha' => $fecha
         ]);
     }
 
-    public static function actualizar(Router $router)
+    public static function actualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
+
             if ($_POST['aceptar']) {
                 $apartado = Apartado::find($id);
                 $apartado->estado = "1";
@@ -69,14 +74,30 @@ class AdminController
                 $apartado->actualizar();
                 header('Location:' . $_SERVER['HTTP_REFERER']);
             } else {
+                $fecha = date('Y-m-d');
+                $hora = date('H:i:s');
+                $devoluciones = new Devolucion();
+                $devoluciones->fecha = $fecha;
+                $devoluciones->hora = $hora;
+                $devoluciones->apartadoId = $id;
+                $devoluciones->guardar();
+
                 $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
                 foreach ($apartados as $apartado) {
                     $componente = Componente::find($apartado->apartado_componenteId);
                     $componente->estado = '0';
                     $componente->actualizar();
-                    header('Location: /inventario');
+                    header('Location:' . $_SERVER['HTTP_REFERER']);
                 }
             }
+        }
+    }
+    public static function eliminar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $devolucion = Devolucion::find($id);
+            $devolucion->eliminar();
         }
     }
 }
