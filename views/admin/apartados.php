@@ -57,7 +57,7 @@
             $idApartado = $apartado->id;
         } //Fin de if 
         ?>
-        <p class="lista-componentes" data-folio="<?php echo $apartado->id; ?>"><?php echo $apartado->foliocomponente . " - #" . $apartado->componente; ?></p>
+        <p class="lista-componentes" data-folio="<?php echo $apartado->id; ?>"><?php echo "Folio: #" . $apartado->foliocomponente . " " .  $apartado->componente; ?></p>
     <?php } //Fin del foreach 
     ?>
 </tbody>
