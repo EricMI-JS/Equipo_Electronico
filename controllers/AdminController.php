@@ -13,10 +13,11 @@ class AdminController
 {
     public static function index(Router $router)
     {
-
         session_start();
 
         isAuth();
+
+        $alertas = [];
 
         $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
@@ -52,8 +53,10 @@ class AdminController
         ]);
     }
 
-    public static function actualizar()
+    public static function actualizar(Router $router)
     {
+        $alertas = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
 
@@ -82,9 +85,13 @@ class AdminController
 
                 // Devolución de componentes
             } elseif ($_POST['devolver']) {
-                if (Devolucion::find($id) === NULL) {
+
+                // Comprobar si existe una devolución con ese ID
+                if (Devolucion::where('apartadoId', $id)) {
                     header('Location:' . $_SERVER['HTTP_REFERER']);
                 }
+            } else {
+                // Llenamos objeto
                 $fecha = date('Y-m-d');
                 $hora = date('H:i:s');
                 $devoluciones = new Devolucion();
@@ -104,6 +111,7 @@ class AdminController
             }
         }
     }
+
     public static function eliminar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

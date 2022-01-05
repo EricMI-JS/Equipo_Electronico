@@ -20,4 +20,11 @@ class Devolucion extends ActiveRecord
         $this->hora = $args['hora'] ?? '';
         $this->apartadoId = $args['apartadoId'] ?? '';
     }
+
+    public function validarDevolucion()
+    {
+        if (!is_numeric($this->id)) {
+            self::$alertas['error'][] = 'Debes Agregar un ID Válido';
+        }
+    }
 }
