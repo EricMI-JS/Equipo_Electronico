@@ -53,10 +53,8 @@ class AdminController
         ]);
     }
 
-    public static function actualizar(Router $router)
+    public static function actualizar()
     {
-        $alertas = [];
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
 
@@ -82,31 +80,30 @@ class AdminController
                     $componente->actualizar();
                     header('Location: /inventario');
                 }
-
                 // Devolución de componentes
             } elseif ($_POST['devolver']) {
-
-                // Comprobar si existe una devolución con ese ID
+                //Comprobar si existe una devolución con ese ID
                 if (Devolucion::where('apartadoId', $id)) {
                     header('Location:' . $_SERVER['HTTP_REFERER']);
-                }
-            } else {
-                // Llenamos objeto
-                $fecha = date('Y-m-d');
-                $hora = date('H:i:s');
-                $devoluciones = new Devolucion();
-                $devoluciones->fecha = $fecha;
-                $devoluciones->hora = $hora;
-                $devoluciones->apartadoId = $id;
-                $devoluciones->guardar();
+                    return;
+                } else {
+                    // Llenamos objeto
+                    $fecha = date('Y-m-d');
+                    $hora = date('H:i:s');
+                    $devoluciones = new Devolucion();
+                    $devoluciones->fecha = $fecha;
+                    $devoluciones->hora = $hora;
+                    $devoluciones->apartadoId = $id;
+                    $devoluciones->guardar();
 
-                // Habilitamos componentes
-                $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
-                foreach ($apartados as $apartado) {
-                    $componente = Componente::find($apartado->apartado_componenteId);
-                    $componente->estado = '0';
-                    $componente->actualizar();
-                    header('Location: /inventario');
+                    // Habilitamos componentes
+                    $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
+                    foreach ($apartados as $apartado) {
+                        $componente = Componente::find($apartado->apartado_componenteId);
+                        $componente->estado = '0';
+                        $componente->actualizar();
+                        header('Location: /inventario');
+                    }
                 }
             }
         }
