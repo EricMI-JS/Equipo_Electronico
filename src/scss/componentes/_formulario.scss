@@ -4,11 +4,14 @@
 .formulario {
   width: 100%;
   background-color: v.$blanco;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 1px 12px 9px -13px rgba(0, 0, 0, 0.4);
 
   .campo {
     label {
       display: block;
-      margin: 0.5rem 0;
+      margin: 1rem 0;
     }
 
     input {

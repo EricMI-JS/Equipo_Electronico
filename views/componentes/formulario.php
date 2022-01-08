@@ -9,16 +9,16 @@
     </div>
 
     <div class="campo">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" id="descripcion" placeholder="Descripcion" name="descripcion" value="<?php echo $componente->descripcion; ?>">
+    </div>
+
+    <div class="campo">
         <label for="categoria">Categoria</label>
         <select name="categoria" id="categoria">
             <?php
             foreach ($categorias as $categoria) { ?>
-                <option value="<?php $categoria->nombre ?>"><?php echo $categoria->nombre ?></option>
+                <option value="<?php echo $categoria->nombre ?>"><?php echo $categoria->nombre ?></option>
             <?php } ?>
         </select>
-    </div>
-
-    <div class="campo">
-        <label for="descripcion">Descripcion</label>
-        <input type="text" id="descripcion" placeholder="Descripcion" name="descripcion" value="<?php echo $componente->descripcion; ?>">
     </div>
