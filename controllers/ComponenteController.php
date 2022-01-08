@@ -59,6 +59,7 @@ class ComponenteController
         if (!is_numeric($_GET['id'])) return;
 
         $componente = Componente::find($_GET['id']);
+        $categorias = Categoria::all();
         $alertas = [];
         session_start();
         isAdmin();
@@ -78,6 +79,7 @@ class ComponenteController
             'titulo' => 'Actualizar Componente',
             'nombre' => $_SESSION['nombre'],
             'componente' => $componente,
+            'categorias' => $categorias,
             'alertas' => $alertas
         ]);
     }
