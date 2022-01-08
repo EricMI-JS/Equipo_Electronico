@@ -1,8 +1,7 @@
 <?php include_once __DIR__ . '/../admin/header-admin.php'; ?>
 
-<div class=" inventario">
-    <a class="boton" href="/inventario/crear">Crear Nuevo Componente</a>
-</div>
+<a class="boton" href="/inventario/crear">Crear Componente</a>
+<a class="boton" href="/categoria/crear">Crear Categoría</a>
 
 <h2 class="subtitulo">Lista de componentes</h2>
 

@@ -7,6 +7,7 @@ use Controllers\ApartadoController;
 use Controllers\APIController;
 use Controllers\LoginController;
 use Controllers\ComponenteController;
+use Controllers\CategoriaController;
 use Controllers\DevolucionController;
 use Controllers\UsuarioController;
 use MVC\Router;
@@ -59,6 +60,10 @@ $router->post('/inventario/crear', [ComponenteController::class, 'crear']);
 $router->get('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
 $router->post('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
 $router->post('/inventario/eliminar', [ComponenteController::class, 'eliminar']);
+
+// CRUD de Categorías
+$router->get('/categoria/crear', [CategoriaController::class, 'crear']);
+$router->post('/categoria/crear', [CategoriaController::class, 'crear']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
