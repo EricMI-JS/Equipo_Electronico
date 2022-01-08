@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Model\Componente;
+use Model\Categoria;
+
 use MVC\Router;
 
 class ComponenteController
@@ -27,6 +29,7 @@ class ComponenteController
     {
         session_start();
         $componente = new Componente;
+        $categorias = Categoria::all();
         $alertas = [];
 
         isAdmin();
@@ -46,6 +49,7 @@ class ComponenteController
             'titulo' => 'Crear nuevo componente',
             'nombre' => $_SESSION['nombre'],
             'componente' => $componente,
+            'categorias' => $categorias,
             'alertas' => $alertas
         ]);
     }

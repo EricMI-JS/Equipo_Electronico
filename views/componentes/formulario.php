@@ -10,7 +10,12 @@
 
     <div class="campo">
         <label for="categoria">Categoria</label>
-        <input type="text" id="categoria" placeholder="Categoria" name="categoria" value="<?php echo $componente->categoria; ?>">
+        <select name="categoria" id="categoria">
+            <?php
+            foreach ($categorias as $categoria) { ?>
+                <option value="<?php $categoria->nombre ?>"><?php echo $categoria->nombre ?></option>
+            <?php } ?>
+        </select>
     </div>
 
     <div class="campo">
