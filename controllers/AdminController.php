@@ -29,7 +29,7 @@ class AdminController
 
         // Consultar la Base de Datos
         $consulta = "SELECT apartados.id, apartados.hora, usuarios.id AS usuarioId, CONCAT (usuarios.nombre, ' ', usuarios.apellido) AS solicitante, ";
-        $consulta .= " usuarios.nocontrol, componentes.id as foliocomponente, componentes.nombre as componente, apartados.estado ";
+        $consulta .= " usuarios.clave_prof, componentes.id as foliocomponente, componentes.nombre as componente, apartados.estado ";
         $consulta .= " FROM apartados ";
         $consulta .= " LEFT OUTER JOIN usuarios ";
         $consulta .= " ON apartados.apartado_usuarioId=usuarios.id ";

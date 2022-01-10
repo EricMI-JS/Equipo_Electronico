@@ -8,7 +8,7 @@
 
 <table class=" tabla">
     <thead class="tabla-encabezado">
-        <th>No. Control</th>
+        <th>Clave</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Email</th>
@@ -21,7 +21,7 @@
     ?>
             <tbody class="tabla-cuerpo">
                 <tr>
-                    <td><?php echo $usuario->nocontrol ?></td>
+                    <td><?php echo $usuario->clave_prof ?></td>
                     <td><?php echo $usuario->nombre ?></td>
                     <td><?php echo $usuario->apellido ?></td>
                     <td><?php echo $usuario->email ?></td>

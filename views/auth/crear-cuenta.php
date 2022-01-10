@@ -18,8 +18,8 @@ include_once __DIR__ . "/../templates/alertas.php";
     </div>
 
     <div class="campo">
-        <label for="nocontrol">No. Control</label>
-        <input type="tel" id="nocontrol" name="nocontrol" placeholder="Tu No. Control" value="<?php echo s($usuario->nocontrol); ?>" />
+        <label for="clave_prof">Clave de Profesor</label>
+        <input type="tel" id="clave_prof" name="clave_prof" placeholder="Clave de profesor ej. md589" value="<?php echo s($usuario->clave_prof); ?>" />
     </div>
 
     <div class="campo">

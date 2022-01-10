@@ -8,10 +8,10 @@ class Usuario extends ActiveRecord
 {
     // Base de datos
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nocontrol', 'nombre', 'apellido', 'email', 'password', 'admin', 'confirmado', 'token'];
+    protected static $columnasDB = ['id', 'clave_prof', 'nombre', 'apellido', 'email', 'password', 'admin', 'confirmado', 'token'];
 
     public $id;
-    public $nocontrol;
+    public $clave_prof;
     public $nombre;
     public $apellido;
     public $email;
@@ -23,7 +23,7 @@ class Usuario extends ActiveRecord
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
-        $this->nocontrol = $args['nocontrol'] ?? null;
+        $this->clave_prof = $args['clave_prof'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->email = $args['email'] ?? '';
@@ -36,11 +36,11 @@ class Usuario extends ActiveRecord
     // Mensajes de validación para la creación de una cuenta
     public function validarNuevaCuenta()
     {
-        if (!$this->nocontrol) {
-            self::$alertas['error'][] = 'El Número de Control es Obligatorio';
+        if (!$this->clave_prof) {
+            self::$alertas['error'][] = 'La Clave de Profesor es obligatoria';
         }
-        if (strlen($this->nocontrol) < 9) {
-            self::$alertas['error'][] = 'El número de control contiene 9 dígitos';
+        if (strlen($this->clave_prof) > 6) {
+            self::$alertas['error'][] = 'La clave debe ser de 6 dígitos';
         }
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre es Obligatorio';
@@ -108,7 +108,7 @@ class Usuario extends ActiveRecord
     // Revisa si el No Control ya existe
     public function existeNoControl()
     {
-        $query = " SELECT * FROM " . self::$tabla . " WHERE nocontrol = '" . $this->nocontrol . "' LIMIT 1";
+        $query = " SELECT * FROM " . self::$tabla . " WHERE clave_prof = '" . $this->clave_prof . "' LIMIT 1";
 
         $resultado = self::$db->query($query);
 

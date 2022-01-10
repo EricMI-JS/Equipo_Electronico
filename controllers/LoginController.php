@@ -203,7 +203,7 @@ class LoginController
             // Modificar a usuario confirmado
             $usuario->confirmado = "1";
             $usuario->token = null;
-            $usuario->guardar();
+            $usuario->actualizar();
             Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');
         }
 
