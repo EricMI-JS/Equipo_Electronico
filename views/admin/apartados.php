@@ -47,9 +47,10 @@
                     <form class="acciones" action="/admin/actualizar" method="POST">
                         <input type="hidden" name="id" value="<?php echo $apartado->id; ?>">
                         <input type="hidden" name="usuarioId" value="<?php echo $apartado->usuarioId; ?>">
+                        <input type="hidden" name="solicitante" value="<?php echo $apartado->solicitante; ?>">
                         <input type="submit" name="aceptar" value="Prestar" class="btn-green">
-                        <input type="submit" name="rechazar" value="Rechazar" class="btn-red">
                         <input type="submit" name="devolver" value="Devolucion" class="btn-lightBlue">
+                        <input type="submit" name="rechazar" value="Rechazar" class="btn-red">
                     </form>
                 </td>
             </tr>

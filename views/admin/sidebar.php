@@ -3,7 +3,6 @@
 
     <nav class="sidebar-nav">
         <a class="<?php echo ($titulo === 'Apartados') ? 'activo' : ''; ?>" href="/admin">Apartados</a>
-        <a class="<?php echo ($titulo === 'Devoluciones') ? 'activo' : ''; ?>" href="/devoluciones">Devoluciones</a>
         <a class="<?php echo ($titulo === 'Usuarios') ? 'activo' : ''; ?>" href="/usuarios">Usuarios</a>
         <a class="<?php echo ($titulo === 'Inventario') ? 'activo' : ''; ?>" href="/inventario">Inventario</a>
     </nav>

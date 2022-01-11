@@ -3,10 +3,11 @@
 namespace Controllers;
 
 use Model\AdminApartado;
-use Model\Devolucion;
 use Model\Apartado;
 use Model\ApartadoComponente;
+use Model\Bitacora;
 use Model\Componente;
+use Model\Usuario;
 use MVC\Router;
 
 class AdminController
@@ -39,8 +40,6 @@ class AdminController
         $consulta .= " ON componentes.id=apartadoscomponentes.apartado_componenteId ";
         $consulta .= " WHERE fecha = '${fecha}' ";
 
-        $devoluciones = Devolucion::all();
-
         // Consultar número de usuarios
         $apartados = AdminApartado::SQL($consulta);
 
@@ -48,7 +47,6 @@ class AdminController
             'titulo' => 'Apartados',
             'nombre' => $_SESSION['nombre'],
             'apartados' => $apartados,
-            'devoluciones' => $devoluciones,
             'fecha' => $fecha
         ]);
     }
@@ -56,18 +54,50 @@ class AdminController
     public static function actualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // debuguear($_POST);
+            session_start();
             $id = $_POST['id'];
+            $bitacora = new Bitacora;
 
-            // Aceptar apartado
-            if ($_POST['aceptar']) {
+            // Si se acepta el préstamo
+            if (isset($_POST['aceptar'])) {
+
+                // Tomamos datos bitácora
+                $solicitante = $_POST['solicitante'];
+                $prestador = $_SESSION['nombre'];
+                $fecha_prestamorestamo = date('Y-m-d');
+                $hora_prestamorestamo = date('H:i:s');
+
+                // Buscamos si ya existe
+                $existe = Bitacora::where('idApartado', $id);
+                if ($existe) {
+                    header('Location:' . $_SERVER['HTTP_REFERER']);
+                    return;
+                }
+
+                // Insertamos datos de prestámo a la bitácora
+                $bitacora->idApartado = $id;
+                $bitacora->fecha_prestamo = $fecha_prestamorestamo;
+                $bitacora->hora_prestamo = $hora_prestamorestamo;
+                $bitacora->solicitante = $solicitante;
+                $bitacora->prestador = $prestador;
+                $bitacora->guardar();
+
+                // Actualizamos estado de apartado
                 $apartado = Apartado::find($id);
                 $apartado->estado = "1";
                 $apartado->actualizar();
                 $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
                 header('Location:' . $_SERVER['HTTP_REFERER']);
+                return;
+            }
 
-                // Rechazar apartado
-            } elseif ($_POST['rechazar']) {
+            // Si se rechaza el préstamo
+            if (isset($_POST['rechazar'])) {
+                $rechazar = Bitacora::where('idApartado', $id);
+                $rechazar->eliminar();
+
+                // Cambiamos estado de apartado
                 $apartado = Apartado::find($id);
                 $apartado->estado = "2";
                 $apartado->actualizar();
@@ -80,41 +110,37 @@ class AdminController
                     $componente->actualizar();
                     header('Location: /inventario');
                 }
-                // Devolución de componentes
-            } elseif ($_POST['devolver']) {
-                //Comprobar si existe una devolución con ese ID
-                if (Devolucion::where('apartadoId', $id)) {
+                return;
+            }
+
+            if (isset($_POST['devolver'])) {
+                // Datos de devolución
+                $fechaDevolucion = date('Y-m-d');
+                $horaDevolucion = date('H:i:s');
+                $receptor = $_SESSION['nombre'];
+
+                $devolucion = Bitacora::where('idApartado', $id);
+
+                if ($devolucion === null) {
                     header('Location:' . $_SERVER['HTTP_REFERER']);
                     return;
-                } else {
-                    // Llenamos objeto
-                    $fecha = date('Y-m-d');
-                    $hora = date('H:i:s');
-                    $devoluciones = new Devolucion();
-                    $devoluciones->fecha = $fecha;
-                    $devoluciones->hora = $hora;
-                    $devoluciones->apartadoId = $id;
-                    $devoluciones->guardar();
+                }
 
-                    // Habilitamos componentes
-                    $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
-                    foreach ($apartados as $apartado) {
-                        $componente = Componente::find($apartado->apartado_componenteId);
-                        $componente->estado = '0';
-                        $componente->actualizar();
-                        header('Location: /inventario');
-                    }
+                // Agregamos datos a la BD
+                $devolucion->recibidor = $receptor;
+                $devolucion->fecha_devolucion = $fechaDevolucion;
+                $devolucion->hora_devolucion = $horaDevolucion;
+                $devolucion->actualizar();
+
+                // Habilitamos componentes
+                $apartados = ApartadoComponente::whereAll("apartado_apartadoId", $id);
+                foreach ($apartados as $apartado) {
+                    $componente = Componente::find($apartado->apartado_componenteId);
+                    $componente->estado = '0';
+                    $componente->actualizar();
+                    header('Location: /inventario');
                 }
             }
-        }
-    }
-
-    public static function eliminar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $devolucion = Devolucion::find($id);
-            $devolucion->eliminar();
         }
     }
 }

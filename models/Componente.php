@@ -11,7 +11,6 @@ class Componente extends ActiveRecord
     public $id;
     public $nombre;
     public $categoria;
-    public $descripcion;
     public $estado;
 
     public function __construct($args = [])
@@ -19,7 +18,7 @@ class Componente extends ActiveRecord
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->categoria = $args['categoria'] ?? '';
-        $this->estado = $args['estado'] ?? '0';
+        $this->estado = $args['estado'] ?? '';
     }
 
     public function validar()
