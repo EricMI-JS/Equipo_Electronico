@@ -84,3 +84,23 @@
 .lista-componentes {
   display: none;
 }
+
+.tabla-bitacora {
+  background-color: v.$blanco;
+  width: 100%;
+  border-radius: 1rem;
+  margin: 5rem 0 5rem;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 3px 6px 13px -1px rgba(0, 0, 0, 0.27);
+  -webkit-box-shadow: 3px 6px 13px -1px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 3px 6px 13px -1px rgba(0, 0, 0, 0.27);
+
+  .tabla-cuerpo {
+    td {
+      margin-top: 10rem;
+      font-weight: normal;
+      border-bottom: 1px solid v.$grisOscuro;
+    }
+  }
+}

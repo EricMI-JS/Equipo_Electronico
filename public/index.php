@@ -10,6 +10,8 @@ use Controllers\ComponenteController;
 use Controllers\CategoriaController;
 use Controllers\DevolucionController;
 use Controllers\UsuarioController;
+use Controllers\BitacoraController;
+use Model\Bitacora;
 use MVC\Router;
 
 $router = new Router();
@@ -64,6 +66,9 @@ $router->post('/inventario/eliminar', [ComponenteController::class, 'eliminar'])
 // CRUD de Categorías
 $router->get('/categoria/crear', [CategoriaController::class, 'crear']);
 $router->post('/categoria/crear', [CategoriaController::class, 'crear']);
+
+// Bitácora
+$router->get('/bitacora', [BitacoraController::class, 'index']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
