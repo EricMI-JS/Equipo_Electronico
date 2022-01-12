@@ -17,23 +17,6 @@ class BitacoraController
 
         $bitacora = Bitacora::all();
 
-
-        // $dompdf = new Dompdf();
-
-        // $options = $dompdf->getOptions();
-        // $options->set(array('isRemoteEnabled' => true));
-        // $dompdf->setOptions($options);
-
-        // $dompdf->setPaper('letter');
-        // // $dompdf->setPaper('A4', );
-
-        // $dompdf->loadHtml('Hola develoteca');
-
-        // $dompdf->render();
-
-        // $dompdf->stream("bitacora_.pdf", array("Attachment" => false));
-
-
         $router->renderAdmin('bitacora/index', [
             'titulo' => 'Bitacora',
             'nombre' => $_SESSION['nombre'],
