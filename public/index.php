@@ -65,8 +65,12 @@ $router->post('/inventario/eliminar', [ComponenteController::class, 'eliminar'])
 $router->get('/folios', [ComponenteController::class, 'folios']);
 
 // CRUD de Categorías
+$router->get('/categoria', [CategoriaController::class, 'index']);
 $router->get('/categoria/crear', [CategoriaController::class, 'crear']);
 $router->post('/categoria/crear', [CategoriaController::class, 'crear']);
+$router->get('/categoria/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categoria/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categoria/eliminar', [CategoriaController::class, 'eliminar']);
 
 // Bitácora
 $router->get('/bitacora', [BitacoraController::class, 'index']);
