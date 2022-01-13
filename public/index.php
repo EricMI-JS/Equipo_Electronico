@@ -62,6 +62,7 @@ $router->post('/inventario/crear', [ComponenteController::class, 'crear']);
 $router->get('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
 $router->post('/inventario/actualizar', [ComponenteController::class, 'actualizar']);
 $router->post('/inventario/eliminar', [ComponenteController::class, 'eliminar']);
+$router->get('/folios', [ComponenteController::class, 'folios']);
 
 // CRUD de Categorías
 $router->get('/categoria/crear', [CategoriaController::class, 'crear']);

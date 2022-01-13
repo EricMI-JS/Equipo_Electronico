@@ -51,7 +51,6 @@
                         <input type="submit" name="aceptar" value="Prestar" class="btn-green">
                         <input type="submit" name="devolver" value="Devolucion" class="btn-lightBlue">
                         <input type="submit" name="rechazar" value="Rechazar" class="btn-red">
-                        <a href="../bitacora">a</a>
                     </form>
                 </td>
             </tr>

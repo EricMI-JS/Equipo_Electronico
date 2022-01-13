@@ -2,6 +2,7 @@
 
 <a class="boton" href="/inventario/crear">Crear Componente</a>
 <a class="boton" href="/categoria/crear">Crear Categoría</a>
+<a class="btn-gray" href="/folios">PDF de Inventario</a>
 
 <h2 class="subtitulo">Lista de componentes</h2>
 

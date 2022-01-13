@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Model\Componente;
 use Model\Categoria;
+use Dompdf\Dompdf;
 
 use MVC\Router;
 
@@ -91,5 +92,19 @@ class ComponenteController
         $componente = Componente::find($id);
         $componente->eliminar();
         header('Location: /inventario');
+    }
+
+    public static function folios(Router $router)
+    {
+        session_start();
+        isAdmin();
+
+        $componentes = Componente::all();
+
+        $router->renderAdmin('folios/index', [
+            'titulo' => 'Crear nuevo componente',
+            'nombre' => $_SESSION['nombre'],
+            'componentes' => $componentes
+        ]);
     }
 }

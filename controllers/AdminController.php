@@ -61,7 +61,6 @@ class AdminController
 
             // Si se acepta el préstamo
             if (isset($_POST['aceptar'])) {
-
                 // Tomamos datos bitácora
                 $solicitante = $_POST['solicitante'];
                 $prestador = $_SESSION['nombre'];
@@ -118,6 +117,7 @@ class AdminController
                 $fechaDevolucion = date('Y-m-d');
                 $horaDevolucion = date('H:i:s');
                 $receptor = $_SESSION['nombre'];
+
 
                 $devolucion = Bitacora::where('idApartado', $id);
 

@@ -13,6 +13,14 @@
   font-size: 1.5rem;
 }
 
+.btn-gray {
+  @include m.boton(#3f3f3f, #fff);
+  margin: 3rem 0;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  display: inline;
+}
+
 .btn-red {
   @include m.boton(#cc0000, #fff);
   padding: 1rem;
