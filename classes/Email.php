@@ -65,8 +65,8 @@ class Email
         $mail->isHTML(TRUE);
         $mail->CharSet = 'UTF-8';
 
-        $mail->setFrom('cuentas@appsalon.com');
-        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->setFrom('tesci@correo.com');
+        $mail->addAddress('tesci@correo.com', 'tesci.edu');
         $mail->Subject = 'Reestablece tu contraseña';
 
         $contenido = "<html>";

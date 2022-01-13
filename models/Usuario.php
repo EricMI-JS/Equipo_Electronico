@@ -113,7 +113,7 @@ class Usuario extends ActiveRecord
         $resultado = self::$db->query($query);
 
         if ($resultado->num_rows) {
-            self::$alertas['error'][] = 'El Número de control ya esta registrado';
+            self::$alertas['error'][] = 'La clave de profesor ya esta registrado';
         }
 
         return $resultado;
